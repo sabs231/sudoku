@@ -18,12 +18,12 @@ int 				main(int argc, char **argv)
 		try
 		{
 			Sudoku 	game(size);
+			game.generateGame();
 		}
-		catch (Exception e)
+		catch (std::exception e)
 		{
 			e.what();
 		}
-		game.generateGame();
 	}
 	else
 	{

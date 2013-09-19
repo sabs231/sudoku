@@ -17,15 +17,9 @@ Sudoku::Sudoku(int size)
 		}
 	}
 	if (size == 4)
-	{
 		_lpObj = new LpObject(0, VAR_FOUR);
-		_coeficientsFnObj = new REAL[1 + VAR_FOUR];
-	}
 	else
-	{
 		_lpObj = new LpObject(0, VAR_NINE);
-		_coeficientsFnObj = new REAL[1 + VAR_NINE];
-	}
 	if (_game == NULL)
 		throw CreateGameException("Could not create the board\n");
 }
@@ -65,8 +59,9 @@ void 			Sudoku::generateGame(){
 void 			Sudoku::generateFObj()
 {
 	std::cout << "Objective Function" << std::endl;
-	for (int i = 1; i < (_size * _size * _size); i++)
-		_coeficientsFnObj[i] = 1.0;
+	_lpObj->setCoeficientsFnObj(1.0, _lpObj->getNColumns());
+	_lpObj->setInt(_lpObj->getNColumns());
+	_lpObj->setObjFn();
 	for (int i = 1; i <= _size; i++)
 	{
 		for (int j = 1; j <= _size; j++)
@@ -81,7 +76,7 @@ void 			Sudoku::generateFObj()
 			std::cout << std::endl;
 		}
 	}
-	std::cout << "0;" << std::endl;
+	std::cout << std::endl;
 }
 
 void			Sudoku::generateRowRestrictions(){
@@ -98,6 +93,7 @@ void			Sudoku::generateRowRestrictions(){
 			std::cout << "0 = 1;" << std::endl;
 		}
 	}
+	std::cout << std::endl;
 }
 
 void			Sudoku::generateColumnRestrictions(){
@@ -114,6 +110,7 @@ void			Sudoku::generateColumnRestrictions(){
 			std::cout << "0 = 1;" << std::endl;
 		}
 	}
+	std::cout << std::endl;
 }
 
 void			Sudoku::generateCellRestrictions(){
@@ -129,6 +126,7 @@ void			Sudoku::generateCellRestrictions(){
 			std::cout << "0 = 1;" << std::endl;
 		}
 	}
+	std::cout << std::endl;
 }
 
 void			Sudoku::generateBlockRestrictions(){
@@ -150,6 +148,7 @@ void			Sudoku::generateBlockRestrictions(){
 			}
 		}
 	}
+	std::cout << std::endl;
 }
 
 void			Sudoku::generateRandomRestrictions(){

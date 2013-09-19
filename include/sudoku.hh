@@ -12,14 +12,7 @@ class 							Sudoku
 	protected:
 		int 						***_game;
 		int 						_size;
-		REAL 						*_coeficientsFnObj;
 		LpObject 				*_lpObj;
-		void 						generateFObj();
-		void 						generateRowRestrictions();
-		void 						generateColumnRestrictions();
-		void 						generateCellRestrictions();
-		void 						generateBlockRestrictions();
-		void 						generateRandomRestrictions();
 	public:
 		Sudoku(int size);
 		~Sudoku();
@@ -27,6 +20,11 @@ class 							Sudoku
 		int 						getValueAt(int i, int j, int k);
 		void 						generateFObj();
 		void 						generateGame();
+		void 						generateRowRestrictions();
+		void 						generateColumnRestrictions();
+		void 						generateCellRestrictions();
+		void 						generateBlockRestrictions();
+		void 						generateRandomRestrictions();
 };
 
 #endif

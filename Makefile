@@ -1,5 +1,6 @@
 SRC			=	src/sudokuException.cpp		\
 				src/sudoku.cpp				\
+				src/lp.cpp					\
 				src/main.cpp
 
 OBJS		=	$(SRC:.cpp=.o)
