@@ -53,6 +53,14 @@ int 			Sudoku::getValueAt(int i, int j, int k)
 	return (_game[i][j][k]);
 }
 
+void 			Sudoku::generateGame(){
+	this->generateFObj();
+	this->generateRowRestrictions();
+	this->generateColumnRestrictions();
+	this->generateCellRestrictions();
+	this->generateBlockRestrictions();
+	this->generateRandomRestrictions();
+}
 
 void 			Sudoku::generateFObj()
 {
@@ -76,7 +84,7 @@ void 			Sudoku::generateFObj()
 	std::cout << "0;" << std::endl;
 }
 
-void			Sudoku::generateRestrictions(){
+void			Sudoku::generateRowRestrictions(){
 	std::cout << "Row Restrictions" << std::endl;
 	for (int i = 1; i <= _size; i++) 
 	{
@@ -90,6 +98,9 @@ void			Sudoku::generateRestrictions(){
 			std::cout << "0 = 1;" << std::endl;
 		}
 	}
+}
+
+void			Sudoku::generateColumnRestrictions(){
 	std::cout << "Column Restrictions" << std::endl;
 	for (int j = 1; j <= _size; j++)
 	{
@@ -103,6 +114,9 @@ void			Sudoku::generateRestrictions(){
 			std::cout << "0 = 1;" << std::endl;
 		}
 	}
+}
+
+void			Sudoku::generateCellRestrictions(){
 	std::cout << "Restriction 1 number per cell" << std::endl;
 	for (int i = 1; i <= _size; i++)
 	{
@@ -115,6 +129,9 @@ void			Sudoku::generateRestrictions(){
 			std::cout << "0 = 1;" << std::endl;
 		}
 	}
+}
+
+void			Sudoku::generateBlockRestrictions(){
 	std::cout << "Restriction 1 unique number per block" << std::endl;
 	int blockSize = _size == 4 ? _size/2 : _size/3;
 	for(int block = 1; block <= blockSize; block++)
@@ -133,4 +150,12 @@ void			Sudoku::generateRestrictions(){
 			}
 		}
 	}
+}
+
+void			Sudoku::generateRandomRestrictions(){
+	std::cout << "Restriction 1 random value on a cell to generate a game" << std::endl;
+	int i = rand() % _size;
+	int j = rand() % _size;
+	int k = rand() % _size;
+	std::cout << "x" << i << j << k << " = 1;" << std::endl;
 }

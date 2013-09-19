@@ -23,8 +23,7 @@ int 				main(int argc, char **argv)
 		{
 			e.what();
 		}
-		game.generateFObj();
-		game.generateRestrictions();
+		game.generateGame();
 	}
 	else
 	{
