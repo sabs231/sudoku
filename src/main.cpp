@@ -17,6 +17,7 @@ int 			main(int argc, char **argv)
 	{
 		Sudoku 	game(size);
 		game.generateFObj();
+		game.generateRestrictions();
 	}
 	else
 	{
