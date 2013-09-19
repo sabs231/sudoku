@@ -25,4 +25,8 @@ fclean:			clean
 
 re:				fclean all
 
+brew:
+				./install_homebrew.sh
+				./install_lp_solve.sh
+
 .PHONY:			all clean fclean re
