@@ -21,4 +21,11 @@ class 									CreateGameException : public SudokuException
 		~CreateGameException() throw();
 };
 
+class 									MakeLpException : public SudokuException
+{
+	public:
+		MakeLpException(const std::string & msg) throw();
+		~MakeLpException() throw();
+};
+
 #endif

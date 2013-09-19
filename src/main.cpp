@@ -2,11 +2,11 @@
 #include 	"sudoku.hh"
 #include 	"sudokuException.hh"
 
-int 			main(int argc, char **argv)
+int 				main(int argc, char **argv)
 {
-	(void) 	argc;
-	(void) 	argv;
-	int 		size;
+	(void) 		argc;
+	(void) 		argv;
+	int 			size;
 
 	std::cout << "Welcome to Sudoku, mortal! please select "
 						<< "the size of the game that you want:\n"
@@ -15,7 +15,18 @@ int 			main(int argc, char **argv)
 	std::cin >> size;
 	if (size == 4 || size == 9)
 	{
-		Sudoku 	game(size);
+		try
+		{
+			Sudoku 	game(size);
+			if (size == 4)
+				LpObject(0, VAR_FOUR);
+			else
+				LpObject(0, VAR_NINE);
+		}
+		catch (Exception e)
+		{
+			e.what();
+		}
 		game.generateFObj();
 	}
 	else

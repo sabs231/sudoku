@@ -2,6 +2,8 @@
 #	define SUDOKU_HH_
 
 #	define NUM_VALUE 	9
+# define VAR_FOUR 	64
+# define VAR_NINE 	729
 
 class 							Sudoku
 {

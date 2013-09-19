@@ -22,3 +22,12 @@ CreateGameException::CreateGameException(const std::string & msg) throw()
 CreateGameException::~CreateGameException() throw()
 {
 }
+
+MakeLpException::MakeLpException(const std::string & msg) throw()
+	: SudokuException(std::string("Make Lp Exception") + msg)
+{
+}
+
+MakeLpException::~MakeLpException() throw()
+{
+}
