@@ -1,10 +1,27 @@
+#include 	<iostream>
 #include 	"sudoku.hh"
 #include 	"sudokuException.hh"
 
 int 			main(int argc, char **argv)
 {
-	Sudoku 	game(4);
+	(void) 	argc;
+	(void) 	argv;
+	int 		size;
 
-	game.generateFObj();
+	std::cout << "Welcome to Sudoku, mortal! please select "
+						<< "the size of the game that you want:\n"
+						<< "4 (4x4) \n9 (9x9)"
+						<< std::endl;
+	std::cin >> size;
+	if (size == 4 || size == 9)
+	{
+		Sudoku 	game(size);
+		game.generateFObj();
+	}
+	else
+	{
+		std::cerr << "Incorrect number" << std::endl;
+		return (-1);
+	}
 	return (0);
 }

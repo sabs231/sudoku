@@ -52,7 +52,10 @@ void 			Sudoku::generateFObj()
 		{
 			for (int k = 1; k <= _size; k++)
 			{
-				std::cout << "x" << i << j << k << "+ ";
+				if (i == _size && j == _size && k == _size)
+					std::cout << "x" << i << j << k << ";";
+				else
+					std::cout << "x" << i << j << k << " + ";
 			}
 			std::cout << std::endl;
 		}
