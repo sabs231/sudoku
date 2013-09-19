@@ -10,13 +10,18 @@ class 							Sudoku
 	protected:
 		int 						***_game;
 		int 						_size;
+		void 						generateFObj();
+		void 						generateRowRestrictions();
+		void 						generateColumnRestrictions();
+		void 						generateCellRestrictions();
+		void 						generateBlockRestrictions();
+		void 						generateRandomRestrictions();
 	public:
 		Sudoku(int size);
 		~Sudoku();
 		int 						getSize();
 		int 						getValueAt(int i, int j, int k);
-		void 						generateFObj();
-		void 						generateRestrictions();
+		void 						generateGame();
 };
 
 #endif
