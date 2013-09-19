@@ -18,10 +18,6 @@ int 				main(int argc, char **argv)
 		try
 		{
 			Sudoku 	game(size);
-			if (size == 4)
-				LpObject(0, VAR_FOUR);
-			else
-				LpObject(0, VAR_NINE);
 		}
 		catch (Exception e)
 		{

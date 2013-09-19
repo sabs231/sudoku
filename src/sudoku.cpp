@@ -16,6 +16,16 @@ Sudoku::Sudoku(int size)
 				_game[i][j][k] = 0;
 		}
 	}
+	if (size == 4)
+	{
+		_lpObj = new LpObject(0, VAR_FOUR);
+		_coeficientsFnObj = new REAL[1 + VAR_FOUR];
+	}
+	else
+	{
+		_lpObj = new LpObject(0, VAR_NINE);
+		_coeficientsFnObj = new REAL[1 + VAR_NINE];
+	}
 	if (_game == NULL)
 		throw CreateGameException("Could not create the board\n");
 }
@@ -47,6 +57,8 @@ int 			Sudoku::getValueAt(int i, int j, int k)
 void 			Sudoku::generateFObj()
 {
 	std::cout << "Objective Function" << std::endl;
+	for (int i = 1; i < (_size * _size * _size); i++)
+		_coeficientsFnObj[i] = 1.0;
 	for (int i = 1; i <= _size; i++)
 	{
 		for (int j = 1; j <= _size; j++)

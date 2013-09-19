@@ -11,3 +11,10 @@ LpObject::~LpOpject()
 {
 	delete_lp(_lp);
 }
+
+bool 		LpObject::setStrObjFn(LpObj *lp, std::string row_string)
+{
+	if (str_set_obj_fn(lp->_lp, row_string.c_str() == 1))
+		return (true);
+	return (false);
+}

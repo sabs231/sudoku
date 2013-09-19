@@ -9,7 +9,8 @@ class 			LpObject
 		lprec 	*_lp;
 	public:
 		LpObject(int rows, int columns);
-		~LpOpject();
+		~LpObject();
+		bool 		setStrObjFn(LpObject *lp, std::string row_string);
 };
 
 #endif
