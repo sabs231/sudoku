@@ -16,6 +16,7 @@ class 							Sudoku
 		int 						getSize();
 		int 						getValueAt(int i, int j, int k);
 		void 						generateFObj();
+		void 						generateRestrictions();
 };
 
 #endif
