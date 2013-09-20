@@ -96,12 +96,12 @@ bool		LpObject::setConstraint(int size, REAL equals){
 			}
 		}
 	}
-	for(int k = 1; k <= cci; k++){
-		std::cout << _coeficientsContraint[k] << " ";
-	}
-	std::cout << std::endl;
 	if (add_constraint(this->_lp, _coeficientsContraint, 3, equals) == 1){
-		return (true);	
+		for(int k = 1; k <= cci; k++){
+			std::cout << k << ":" << _coeficientsContraint[k] << " ";
+		}
+		std::cout << std::endl;
+		return (true);
 	}
 	return (false);
 }
@@ -127,18 +127,9 @@ bool		LpObject::solveLp()
 	return solve(this->_lp);
 }
 
-/*
-unsigned char LpObject::getVariables(REAL **ptr_var)
-{
-	return get_ptr_variables(this->_lp, ptr_var);
-}
-*/
-
 REAL		LpObject::getObjective()
 {
 	print_solution(this->_lp,this->getNColumns());
-	//print_constraints(this->_lp,this->getNColumns());
-	//print_tableau(this->_lp);
 	return 0.0;
 }
 
