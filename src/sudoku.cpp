@@ -54,6 +54,15 @@ void 			Sudoku::generateGame(){
 	this->generateCellRestrictions();
 	this->generateBlockRestrictions();
 	this->generateRandomRestrictions();
+	this->solve();
+	//this->printPartialSudoku();
+	//this->printSudoku();
+}
+
+void 			Sudoku::solve()
+{
+	_lpObj->solveLp();
+	unsigned char variables;
 }
 
 void 			Sudoku::generateFObj()
@@ -81,6 +90,7 @@ void 			Sudoku::generateFObj()
 
 void			Sudoku::generateRowRestrictions(){
 	std::cout << "Row Restrictions" << std::endl;
+	_lpObj->setCoeficientsConst(0.0, _size);
 	for (int i = 1; i <= _size; i++) 
 	{
 		std::cout << "Row " << i << std::endl;
@@ -88,9 +98,12 @@ void			Sudoku::generateRowRestrictions(){
 		{
 			for (int j = 1; j <= _size; j++)
 			{
+				_lpObj->setCoeficientConst(1.0,i,j,k);
 				std::cout << "x" << i << j << k << "+ ";
 			}
 			std::cout << "0 = 1;" << std::endl;
+			_lpObj->setConstraint( _size, 1);
+			_lpObj->setCoeficientsConst(0.0, _size);
 		}
 	}
 	std::cout << std::endl;
@@ -98,6 +111,7 @@ void			Sudoku::generateRowRestrictions(){
 
 void			Sudoku::generateColumnRestrictions(){
 	std::cout << "Column Restrictions" << std::endl;
+	_lpObj->setCoeficientsConst(0.0, _size);
 	for (int j = 1; j <= _size; j++)
 	{
 		std::cout << "Column " << j << std::endl;
@@ -105,9 +119,12 @@ void			Sudoku::generateColumnRestrictions(){
 		{
 			for (int i = 1; i <= _size; i++) 
 			{
+				_lpObj->setCoeficientConst(1.0,i,j,k);
 				std::cout << "x" << i << j << k << "+ ";
 			}
 			std::cout << "0 = 1;" << std::endl;
+			_lpObj->setConstraint( _size, 1);
+			_lpObj->setCoeficientsConst(0.0, _size);
 		}
 	}
 	std::cout << std::endl;
@@ -115,15 +132,19 @@ void			Sudoku::generateColumnRestrictions(){
 
 void			Sudoku::generateCellRestrictions(){
 	std::cout << "Restriction 1 number per cell" << std::endl;
+	_lpObj->setCoeficientsConst(0.0, _size);
 	for (int i = 1; i <= _size; i++)
 	{
 		for (int j = 1; j <= _size; j++)
 		{
 			for (int k = 1; k <= _size; k++)
 			{
+				_lpObj->setCoeficientConst(1.0,i,j,k);
 				std::cout << "x" << i << j << k << "+ ";
 			}
 			std::cout << "0 = 1;" << std::endl;
+			_lpObj->setConstraint( _size, 1);
+			_lpObj->setCoeficientsConst(0.0, _size);
 		}
 	}
 	std::cout << std::endl;
@@ -131,6 +152,7 @@ void			Sudoku::generateCellRestrictions(){
 
 void			Sudoku::generateBlockRestrictions(){
 	std::cout << "Restriction 1 unique number per block" << std::endl;
+	_lpObj->setCoeficientsConst(0.0, _size);
 	int blockSize = _size == 4 ? _size/2 : _size/3;
 	for(int block = 1; block <= blockSize; block++)
 	{
@@ -141,10 +163,13 @@ void			Sudoku::generateBlockRestrictions(){
 				for (int i = ((blockSize*(block-1))+1); i <= block*blockSize; i++)
 				{
 					for (int j = ((blockSize*(block2-1))+1); j <= block2*blockSize; j++){
+						_lpObj->setCoeficientConst(1.0,i,j,k);
 						std::cout << "x" << i << j << k << " + ";
 					}
 				}
 				std::cout << "0 = 1;" << std::endl;
+				_lpObj->setConstraint( _size, 1);
+				_lpObj->setCoeficientsConst(0.0, _size);
 			}
 		}
 	}
@@ -156,6 +181,10 @@ void			Sudoku::generateRandomRestrictions(){
 	int i = rand() % _size;
 	int j = rand() % _size;
 	int k = rand() % _size;
+	_lpObj->setCoeficientsConst(0.0, _size);
+	_lpObj->setCoeficientConst(1.0,i,j,k);
+	_lpObj->setConstraint( _size, 1);
+	_lpObj->setCoeficientsConst(0.0, _size);
 	std::cout << "x" << i << j << k << " = 1;" << std::endl;
 }
 

@@ -7,15 +7,23 @@
 class 			LpObject
 {
 	protected:
-		lprec 	*_lp;
+		lprec 		*_lp;
 		REAL 		*_coeficientsFnObj;
+		REAL 		***_coeficientsConst;
 	public:
 		LpObject(int rows, int columns);
 		~LpObject();
 		bool 		setObjFn();
-		void 		setCoeficientsFnObj(float value, int size);
 		void 		setInt(int size);
+		bool		setConstraint(int size, REAL equals);
+		bool		solveLp();
+		unsigned char getVariables(REAL **ptr_var);
+		REAL		getObjective();
 		int 		getNColumns();
+		void 		setCoeficientsFnObj(float value, int size);
+		void		setCoeficientsConst(float value, int size);
+		void		setCoeficientConst(float value, int i, int j, int k);
+		
 };
 
 #endif

@@ -10,8 +10,8 @@
 class 							Sudoku
 {
 	protected:
-		int 						***_game;
-		int 						_size;
+		int 					***_game;
+		int 					_size;
 		LpObject 				*_lpObj;
 	public:
 		Sudoku(int size);
@@ -25,7 +25,9 @@ class 							Sudoku
 		void 						generateCellRestrictions();
 		void 						generateBlockRestrictions();
 		void 						generateRandomRestrictions();
-		void 						displayGame();
+		void 						solve();
+		void 						printPartialSudoku();
+		void 						printSudoku();
 };
 
 #endif
