@@ -1,4 +1,5 @@
 #include 	<iostream>
+#include	<time.h> 
 #include 	"sudoku.hh"
 #include 	"sudokuException.hh"
 
@@ -56,12 +57,13 @@ void 			Sudoku::generateGame(){
 	this->generateRandomRestrictions();
 	this->solve();
 	this->fillSolution();
+	this->displayNotSolution();
 }
 
 void 			Sudoku::solve()
 {
 	_lpObj->solveLp();
-	_lpObj->getObjective();
+	//_lpObj->getObjective();
 	_lpObj->getVariables();
 }
 
@@ -98,7 +100,7 @@ void			Sudoku::generateRowRestrictions(){
 		{
 			for (int j = 1; j <= _size; j++)
 			{
-				_lpObj->setCoeficientConst(1.0, i, j, k);
+				_lpObj->setCoeficientConst(1.0, i, k, j);
 				if (j == _size)
 					std::cout << "x" << i << j << k << " ";
 				else
@@ -122,7 +124,7 @@ void			Sudoku::generateColumnRestrictions(){
 		{
 			for (int i = 1; i <= _size; i++) 
 			{
-				_lpObj->setCoeficientConst(1.0, i, j, k);
+				_lpObj->setCoeficientConst(1.0, i, k, j);
 				if (i == _size)
 					std::cout << "x" << i << j << k << " ";
 				else
@@ -145,7 +147,7 @@ void			Sudoku::generateCellRestrictions(){
 		{
 			for (int k = 1; k <= _size; k++)
 			{
-				_lpObj->setCoeficientConst(1.0, i, j, k);
+				_lpObj->setCoeficientConst(1.0, i, k, j);
 				if (k == _size)
 					std::cout << "x" << i << j << k << " ";
 				else
@@ -177,7 +179,7 @@ void			Sudoku::generateBlockRestrictions(){
 							std::cout << "x" << i << j << k << " ";
 						else
 							std::cout << "x" << i << j << k << " + ";
-						_lpObj->setCoeficientConst(1.0, i, j, k);
+						_lpObj->setCoeficientConst(1.0, i, k, j);
 					}
 				}
 				std::cout << "= 1;" << std::endl;
@@ -191,11 +193,12 @@ void			Sudoku::generateBlockRestrictions(){
 
 void			Sudoku::generateRandomRestrictions(){
 	std::cout << "Restriction 1 random value on a cell to generate a game" << std::endl;
-	int i = rand() % _size;
-	int j = rand() % _size;
-	int k = rand() % _size;
+	srand (time(NULL));
+	int i = rand() % (_size-1) + 1;
+	int j = rand() % (_size-1) + 1;
+	int k = rand() % (_size-1) + 1;
 	_lpObj->setCoeficientsConst(0.0, _size);
-	_lpObj->setCoeficientConst(1.0, i, j, k);
+	_lpObj->setCoeficientConst(1.0, i, k, j);
 	_lpObj->setConstraint( _size, 1);
 	_lpObj->setCoeficientsConst(0.0, _size);
 	std::cout << "x" << i << j << k << " = 1;" << std::endl;
@@ -203,8 +206,9 @@ void			Sudoku::generateRandomRestrictions(){
 
 void 			Sudoku::displayGame()
 {
+	std::cout << "\n\n Solution \n" << std::endl;
+	
 	int 		k;
-
 	for (int i = 0; i < _size; i++)
 	{
 		for (int j = 0; j < _size; j++)
@@ -223,7 +227,6 @@ void 			Sudoku::displayGame()
 void 			Sudoku::fillSolution()
 {
 	int 		real;
-
 	real = 0;
 	for (int i = 0; i < _size; i++)
 	{
@@ -235,5 +238,29 @@ void 			Sudoku::fillSolution()
 				real++;
 			}
 		}
+	}
+}
+
+void 			Sudoku::displayNotSolution()
+{
+	int 		k;
+
+	std::cout << "\n\n Game \n" << std::endl;
+	srand (time(NULL));
+	for (int i = 0; i < _size; i++)
+	{
+		for (int j = 0; j < _size; j++)
+		{
+			std::cout << "|";
+			k = 1;
+			while (_game[i][j][k] != 1 && k < _size)
+				k++;
+			if ((rand() % 3) == 0)
+				std::cout << k;
+			else
+				std::cout << " ";
+			std::cout << "|";
+		}
+		std::cout << std::endl;
 	}
 }

@@ -28,6 +28,7 @@ class 							Sudoku
 		void						displayGame();
 		void 						solve();
 		void 						fillSolution();
+		void 						displayNotSolution();
 };
 
 #endif
