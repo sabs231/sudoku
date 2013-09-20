@@ -55,14 +55,14 @@ void 			Sudoku::generateGame(){
 	this->generateBlockRestrictions();
 	this->generateRandomRestrictions();
 	this->solve();
-	//this->printPartialSudoku();
-	//this->printSudoku();
+	this->fillSolution();
 }
 
 void 			Sudoku::solve()
 {
 	_lpObj->solveLp();
 	_lpObj->getObjective();
+	_lpObj->getVariables();
 }
 
 void 			Sudoku::generateFObj()
@@ -182,7 +182,7 @@ void			Sudoku::generateRandomRestrictions(){
 	int j = rand() % _size;
 	int k = rand() % _size;
 	_lpObj->setCoeficientsConst(0.0, _size);
-	_lpObj->setCoeficientConst(1.0,i,j,k);
+	_lpObj->setCoeficientConst(1.0, i, j, k);
 	_lpObj->setConstraint( _size, 1);
 	_lpObj->setCoeficientsConst(0.0, _size);
 	std::cout << "x" << i << j << k << " = 1;" << std::endl;
@@ -190,17 +190,37 @@ void			Sudoku::generateRandomRestrictions(){
 
 void 			Sudoku::displayGame()
 {
-	int 		blockSize = _size == 4 ? _size/2 : _size/3;
+	int 		k;
 
-	std::cout << "\033[2J\033[0;0f";
-	std::cout << "\033[0;0f";
 	for (int i = 0; i < _size; i++)
 	{
-		std::cout << "|";
 		for (int j = 0; j < _size; j++)
 		{
-			std::cout << "_" << "|";
+			std::cout << "|";
+			k = 1;
+			while (_game[i][j][k] != 1 && k < _size)
+				k++;
+			std::cout << k;
+			std::cout << "|";
 		}
 		std::cout << std::endl;
+	}
+}
+
+void 			Sudoku::fillSolution()
+{
+	int 		real;
+
+	real = 0;
+	for (int i = 0; i < _size; i++)
+	{
+		for (int j = 0; j < _size; j++)
+		{
+			for (int k = 0; k < _size; k++)
+			{
+				_game[i][k][j] = this->_lpObj->_solution[real];
+				real++;
+			}
+		}
 	}
 }

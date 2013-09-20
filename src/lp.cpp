@@ -7,9 +7,15 @@ LpObject::LpObject(int rows, int columns)
 {
 	_lp = make_lp(rows, columns);
 	if (columns == VAR_FOUR)
+	{
 		_coeficientsFnObj 	= new REAL[1 + VAR_FOUR];
+		_solution = new REAL[1 + VAR_FOUR];
+	}
 	else
+	{
 		_coeficientsFnObj 	= new REAL[1 + VAR_NINE];
+		_solution = new REAL[1 + VAR_NINE];
+	}
 	_coeficientsConst = new REAL **[columns];
 	for (int i = 0; i < columns; i++)
 	{
@@ -34,9 +40,8 @@ LpObject::~LpObject()
 */
 bool 		LpObject::setObjFn()
 {
-	if (set_obj_fn(this->_lp, this->_coeficientsFnObj) == 1){
+	if (set_obj_fn(this->_lp, this->_coeficientsFnObj) == 1)
 		return (true);
-	}
 	return (false);
 }
 /*
@@ -68,7 +73,7 @@ void 		LpObject::setCoeficientsConst(float value, int size)
 */
 void 		LpObject::setCoeficientConst(float value, int i, int j, int k)
 {
-		_coeficientsConst[i-1][j-1][k-1] = value;
+		_coeficientsConst[i - 1][j - 1][k - 1] = value;
 }
 
 /*
@@ -117,21 +122,27 @@ int 		LpObject::getNColumns()
 	return (get_Ncolumns(this->_lp));
 }
 
-bool		LpObject::solveLp(){
+bool		LpObject::solveLp()
+{
 	return solve(this->_lp);
 }
 
+/*
 unsigned char LpObject::getVariables(REAL **ptr_var)
 {
 	return get_ptr_variables(this->_lp, ptr_var);
 }
+*/
 
-REAL		LpObject::getObjective(){
+REAL		LpObject::getObjective()
+{
 	print_solution(this->_lp,this->getNColumns());
 	//print_constraints(this->_lp,this->getNColumns());
 	//print_tableau(this->_lp);
 	return 0.0;
 }
 
-
-
+bool 		LpObject::getVariables()
+{
+	return (get_variables(this->_lp, this->_solution));
+}

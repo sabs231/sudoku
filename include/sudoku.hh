@@ -12,7 +12,7 @@ class 							Sudoku
 	protected:
 		int 					***_game;
 		int 					_size;
-		LpObject 				*_lpObj;
+		LpObject 			*_lpObj;
 	public:
 		Sudoku(int size);
 		~Sudoku();
@@ -29,6 +29,7 @@ class 							Sudoku
 		void 						solve();
 		void 						printPartialSudoku();
 		void 						printSudoku();
+		void 						fillSolution();
 };
 
 #endif
