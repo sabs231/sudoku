@@ -98,10 +98,13 @@ void			Sudoku::generateRowRestrictions(){
 		{
 			for (int j = 1; j <= _size; j++)
 			{
-				_lpObj->setCoeficientConst(1.0,i,j,k);
-				std::cout << "x" << i << j << k << "+ ";
+				_lpObj->setCoeficientConst(1.0, i, j, k);
+				if (j == _size)
+					std::cout << "x" << i << j << k << " ";
+				else
+					std::cout << "x" << i << j << k << " + ";
 			}
-			std::cout << "0 = 1;" << std::endl;
+			std::cout << "= 1;" << std::endl;
 			_lpObj->setConstraint( _size, 1);
 			_lpObj->setCoeficientsConst(0.0, _size);
 		}
@@ -119,10 +122,13 @@ void			Sudoku::generateColumnRestrictions(){
 		{
 			for (int i = 1; i <= _size; i++) 
 			{
-				_lpObj->setCoeficientConst(1.0,i,j,k);
-				std::cout << "x" << i << j << k << "+ ";
+				_lpObj->setCoeficientConst(1.0, i, j, k);
+				if (i == _size)
+					std::cout << "x" << i << j << k << " ";
+				else
+					std::cout << "x" << i << j << k << " + ";
 			}
-			std::cout << "0 = 1;" << std::endl;
+			std::cout << "= 1;" << std::endl;
 			_lpObj->setConstraint( _size, 1);
 			_lpObj->setCoeficientsConst(0.0, _size);
 		}
@@ -139,10 +145,13 @@ void			Sudoku::generateCellRestrictions(){
 		{
 			for (int k = 1; k <= _size; k++)
 			{
-				_lpObj->setCoeficientConst(1.0,i,j,k);
-				std::cout << "x" << i << j << k << "+ ";
+				_lpObj->setCoeficientConst(1.0, i, j, k);
+				if (k == _size)
+					std::cout << "x" << i << j << k << " ";
+				else
+					std::cout << "x" << i << j << k << " + ";
 			}
-			std::cout << "0 = 1;" << std::endl;
+			std::cout << "= 1;" << std::endl;
 			_lpObj->setConstraint( _size, 1);
 			_lpObj->setCoeficientsConst(0.0, _size);
 		}
@@ -162,12 +171,16 @@ void			Sudoku::generateBlockRestrictions(){
 			{
 				for (int i = ((blockSize*(block-1))+1); i <= block*blockSize; i++)
 				{
-					for (int j = ((blockSize*(block2-1))+1); j <= block2*blockSize; j++){
-						_lpObj->setCoeficientConst(1.0,i,j,k);
-						std::cout << "x" << i << j << k << " + ";
+					for (int j = ((blockSize*(block2-1))+1); j <= block2*blockSize; j++)
+					{
+						if (j == _size)
+							std::cout << "x" << i << j << k << " ";
+						else
+							std::cout << "x" << i << j << k << " + ";
+						_lpObj->setCoeficientConst(1.0, i, j, k);
 					}
 				}
-				std::cout << "0 = 1;" << std::endl;
+				std::cout << "= 1;" << std::endl;
 				_lpObj->setConstraint( _size, 1);
 				_lpObj->setCoeficientsConst(0.0, _size);
 			}

@@ -18,7 +18,6 @@ class 			LpObject
 		void 		setInt(int size);
 		bool		setConstraint(int size, REAL equals);
 		bool		solveLp();
-		//unsigned char getVariables(REAL **ptr_var);
 		REAL		getObjective();
 		int 		getNColumns();
 		void 		setCoeficientsFnObj(float value, int size);

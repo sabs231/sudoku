@@ -27,8 +27,6 @@ class 							Sudoku
 		void 						generateRandomRestrictions();
 		void						displayGame();
 		void 						solve();
-		void 						printPartialSudoku();
-		void 						printSudoku();
 		void 						fillSolution();
 };
 
