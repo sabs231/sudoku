@@ -19,6 +19,7 @@ int 				main(int argc, char **argv)
 		{
 			Sudoku 	game(size);
 			game.generateGame();
+			game.displayGame();
 		}
 		catch (std::exception e)
 		{

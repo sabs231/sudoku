@@ -158,3 +158,20 @@ void			Sudoku::generateRandomRestrictions(){
 	int k = rand() % _size;
 	std::cout << "x" << i << j << k << " = 1;" << std::endl;
 }
+
+void 			Sudoku::displayGame()
+{
+	int 		blockSize = _size == 4 ? _size/2 : _size/3;
+
+	std::cout << "\033[2J\033[0;0f";
+	std::cout << "\033[0;0f";
+	for (int i = 0; i < _size; i++)
+	{
+		std::cout << "|";
+		for (int j = 0; j < _size; j++)
+		{
+			std::cout << "_" << "|";
+		}
+		std::cout << std::endl;
+	}
+}
