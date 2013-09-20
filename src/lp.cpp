@@ -97,10 +97,6 @@ bool		LpObject::setConstraint(int size, REAL equals){
 		}
 	}
 	if (add_constraint(this->_lp, _coeficientsContraint, 3, equals) == 1){
-		for(int k = 1; k <= cci; k++){
-			std::cout << k << ":" << _coeficientsContraint[k] << " ";
-		}
-		std::cout << std::endl;
 		return (true);
 	}
 	return (false);
