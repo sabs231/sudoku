@@ -1,3 +1,4 @@
+#include 	<iostream>
 #include 	"sudoku.hh"
 #include 	"lp.hh"
 #include 	"sudokuException.hh"
@@ -33,8 +34,9 @@ LpObject::~LpObject()
 */
 bool 		LpObject::setObjFn()
 {
-	if (set_obj_fn(this->_lp, this->_coeficientsFnObj) == 1)
+	if (set_obj_fn(this->_lp, this->_coeficientsFnObj) == 1){
 		return (true);
+	}
 	return (false);
 }
 /*
@@ -66,15 +68,19 @@ void 		LpObject::setCoeficientsConst(float value, int size)
 */
 void 		LpObject::setCoeficientConst(float value, int i, int j, int k)
 {
-		_coeficientsConst[i][j][k] = value;
+		_coeficientsConst[i-1][j-1][k-1] = value;
 }
 
 /*
 * Agrega una constraint con el arreglo actual de Restricciones
 */
 bool		LpObject::setConstraint(int size, REAL equals){
-	REAL *_coeficientsContraint = new REAL[1 + VAR_FOUR];
-	int cci = 0;
+	REAL *_coeficientsContraint;
+	if (size == VAR_FOUR)
+		_coeficientsContraint = new REAL[1 + VAR_FOUR];
+	else
+		_coeficientsContraint = new REAL[1 + VAR_NINE];
+	int cci = 1;
 	for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < size; j++)
@@ -85,8 +91,13 @@ bool		LpObject::setConstraint(int size, REAL equals){
 			}
 		}
 	}
-	if (add_constraint(this->_lp, _coeficientsContraint, 3, equals) == 1)
-		return (true);
+	for(int k = 1; k <= cci; k++){
+		std::cout << _coeficientsContraint[k] << " ";
+	}
+	std::cout << std::endl;
+	if (add_constraint(this->_lp, _coeficientsContraint, 3, equals) == 1){
+		return (true);	
+	}
 	return (false);
 }
 
@@ -116,7 +127,10 @@ unsigned char LpObject::getVariables(REAL **ptr_var)
 }
 
 REAL		LpObject::getObjective(){
-	
+	print_solution(this->_lp,this->getNColumns());
+	//print_constraints(this->_lp,this->getNColumns());
+	//print_tableau(this->_lp);
+	return 0.0;
 }
 
 

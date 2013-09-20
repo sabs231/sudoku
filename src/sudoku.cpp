@@ -62,7 +62,7 @@ void 			Sudoku::generateGame(){
 void 			Sudoku::solve()
 {
 	_lpObj->solveLp();
-	unsigned char variables;
+	_lpObj->getObjective();
 }
 
 void 			Sudoku::generateFObj()
