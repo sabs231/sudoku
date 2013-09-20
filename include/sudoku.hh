@@ -25,6 +25,7 @@ class 							Sudoku
 		void 						generateCellRestrictions();
 		void 						generateBlockRestrictions();
 		void 						generateRandomRestrictions();
+		void						displayGame();
 		void 						solve();
 		void 						printPartialSudoku();
 		void 						printSudoku();
